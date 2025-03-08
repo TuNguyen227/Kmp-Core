@@ -1,22 +1,22 @@
 package com.nmt.kmpcore.provider
 
 import androidx.compose.runtime.mutableStateOf
-import kmp_core.shared.generated.resources.Res
-import kmp_core.shared.generated.resources.icon_flag_ae
-import kmp_core.shared.generated.resources.icon_flag_china
-import kmp_core.shared.generated.resources.icon_flag_de
-import kmp_core.shared.generated.resources.icon_flag_es
-import kmp_core.shared.generated.resources.icon_flag_fr
-import kmp_core.shared.generated.resources.icon_flag_in
-import kmp_core.shared.generated.resources.icon_flag_it
-import kmp_core.shared.generated.resources.icon_flag_jp
-import kmp_core.shared.generated.resources.icon_flag_kr
-import kmp_core.shared.generated.resources.icon_flag_nl
-import kmp_core.shared.generated.resources.icon_flag_pt
-import kmp_core.shared.generated.resources.icon_flag_ru
-import kmp_core.shared.generated.resources.icon_flag_se
-import kmp_core.shared.generated.resources.icon_flag_tr
-import kmp_core.shared.generated.resources.icon_flag_us
+import kmp_core.corelibrary.generated.resources.Res
+import kmp_core.corelibrary.generated.resources.icon_flag_ae
+import kmp_core.corelibrary.generated.resources.icon_flag_china
+import kmp_core.corelibrary.generated.resources.icon_flag_de
+import kmp_core.corelibrary.generated.resources.icon_flag_es
+import kmp_core.corelibrary.generated.resources.icon_flag_fr
+import kmp_core.corelibrary.generated.resources.icon_flag_in
+import kmp_core.corelibrary.generated.resources.icon_flag_it
+import kmp_core.corelibrary.generated.resources.icon_flag_jp
+import kmp_core.corelibrary.generated.resources.icon_flag_kr
+import kmp_core.corelibrary.generated.resources.icon_flag_nl
+import kmp_core.corelibrary.generated.resources.icon_flag_pt
+import kmp_core.corelibrary.generated.resources.icon_flag_ru
+import kmp_core.corelibrary.generated.resources.icon_flag_se
+import kmp_core.corelibrary.generated.resources.icon_flag_tr
+import kmp_core.corelibrary.generated.resources.icon_flag_us
 import org.jetbrains.compose.resources.DrawableResource
 
 object LanguageProvider {
