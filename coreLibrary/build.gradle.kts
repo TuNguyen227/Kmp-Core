@@ -2,10 +2,10 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.compose.compiler)
+    alias(coreLibs.plugins.kotlinMultiplatform)
+    alias(coreLibs.plugins.composeMultiplatform)
+    alias(coreLibs.plugins.androidLibrary)
+    alias(coreLibs.plugins.compose.compiler)
     kotlin("plugin.serialization") version "2.1.10"
 }
 
@@ -34,7 +34,7 @@ kotlin {
     }
     sourceSets {
         androidMain.dependencies {
-            implementation(libs.ktor.client.android)
+            implementation(coreLibs.ktor.client.android)
         }
         commonMain.dependencies {
             //put your multiplatform dependencies here
@@ -43,17 +43,17 @@ kotlin {
             // resources
             implementation(compose.components.resources)
             //ktor client
-            implementation(libs.bundles.ktor)
-            implementation(libs.ktor.client.auth)
+            implementation(coreLibs.bundles.ktor)
+            implementation(coreLibs.ktor.client.auth)
             // koin
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.core)
+            implementation(project.dependencies.platform(coreLibs.koin.bom))
+            implementation(coreLibs.koin.core)
         }
         iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
+            implementation(coreLibs.ktor.client.darwin)
         }
         commonTest.dependencies {
-            implementation(libs.kotlin.test)
+            implementation(coreLibs.kotlin.test)
         }
     }
 
