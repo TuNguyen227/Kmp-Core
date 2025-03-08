@@ -12,6 +12,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        create("coreLibs") {
+            from(files("gradle/corelibs.versions.toml")) // Load submodule-specific versions
+        }
+    }
 }
 
 rootProject.name = "Kmp-Core"
