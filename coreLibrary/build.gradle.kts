@@ -57,6 +57,8 @@ kotlin {
             // koin
             implementation(project.dependencies.platform(coreLibs.koin.bom))
             implementation(coreLibs.koin.core)
+            // navigation
+            implementation(coreLibs.navigation.decompose)
         }
         iosMain.dependencies {
             implementation(coreLibs.ktor.client.darwin)
