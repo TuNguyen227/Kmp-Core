@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
+import org.jetbrains.kotlin.gradle.plugin.sources.android.findKotlinSourceSet
 
 plugins {
     alias(coreLibs.plugins.kotlinMultiplatform)
@@ -9,8 +10,16 @@ plugins {
     kotlin("plugin.serialization") version "2.1.10"
 }
 
-val environment : String by project
+val environment : String = rootProject.findProperty("environment") as? String
+    ?: project.findProperty("environment") as? String
+    ?: "dev"
 
+val environmentPath : Project = try {
+    project(":Kmp-Core:environment")
+} catch (_:Exception) {
+    project(":environment")
+}
+println("Using environment: $environment")
 kotlin {
     androidTarget {
         compilations.configureEach {
@@ -38,7 +47,7 @@ kotlin {
         }
         commonMain.dependencies {
             //put your multiplatform dependencies here
-            implementation(project(":environment:$environment"))
+            implementation(project("${environmentPath.path}:$environment"))
             implementation(compose.runtime)
             // resources
             implementation(compose.components.resources)
@@ -64,6 +73,12 @@ kotlin {
             }
         }
     }
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.nmt.kmpcore.coreLibrary.commonMain"
+    generateResClass = always
 }
 
 android {
