@@ -21,5 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Kmp-Core"
 include(":coreLibrary")
-include(":environment")
-include(":environment:dev",":environment:release")

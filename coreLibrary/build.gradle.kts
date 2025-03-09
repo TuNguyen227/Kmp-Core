@@ -1,25 +1,14 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
-import org.jetbrains.kotlin.gradle.plugin.sources.android.findKotlinSourceSet
-
 plugins {
     alias(coreLibs.plugins.kotlinMultiplatform)
     alias(coreLibs.plugins.composeMultiplatform)
     alias(coreLibs.plugins.androidLibrary)
     alias(coreLibs.plugins.compose.compiler)
     kotlin("plugin.serialization") version "2.1.10"
+    id("com.codingfeline.buildkonfig") version "0.17.0"
 }
 
-val environment : String = rootProject.findProperty("environment") as? String
-    ?: project.findProperty("environment") as? String
-    ?: "dev"
-
-val environmentPath : Project = try {
-    project(":Kmp-Core:environment")
-} catch (_:Exception) {
-    project(":environment")
-}
-println("Using environment: $environment")
 kotlin {
     androidTarget {
         compilations.configureEach {
@@ -30,7 +19,7 @@ kotlin {
             }
         }
     }
-    
+    applyDefaultHierarchyTemplate()
     listOf(
         iosX64(),
         iosArm64(),
@@ -46,8 +35,7 @@ kotlin {
             implementation(coreLibs.ktor.client.android)
         }
         commonMain.dependencies {
-            //put your multiplatform dependencies here
-            implementation(project("${environmentPath.path}:$environment"))
+            //put your multiplatform dependencies her
             implementation(compose.runtime)
             // resources
             implementation(compose.components.resources)
@@ -57,6 +45,8 @@ kotlin {
             // koin
             implementation(project.dependencies.platform(coreLibs.koin.bom))
             implementation(coreLibs.koin.core)
+            // navigation
+            implementation(coreLibs.navigation.decompose)
         }
         iosMain.dependencies {
             implementation(coreLibs.ktor.client.darwin)
@@ -80,7 +70,6 @@ compose.resources {
     packageOfResClass = "com.nmt.kmpcore.coreLibrary.commonMain"
     generateResClass = always
 }
-
 android {
     namespace = "com.nmt.kmpcore"
     compileSdk = 35
@@ -90,5 +79,16 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+buildkonfig {
+    packageName = "com.nmt.kmpcore.coreLibrary"
+
+    defaultConfigs {
+        buildConfigConstField(FieldSpec.Type.BOOLEAN,"isDebug","true")
+    }
+
+    defaultConfigs("release") {
+        buildConfigConstField(FieldSpec.Type.BOOLEAN,"isDebug","true")
     }
 }

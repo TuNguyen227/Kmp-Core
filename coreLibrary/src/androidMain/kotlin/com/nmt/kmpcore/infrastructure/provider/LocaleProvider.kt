@@ -1,4 +1,4 @@
-package com.nmt.kmpcore.provider
+package com.nmt.kmpcore.infrastructure.provider
 
 import java.util.Locale
 
