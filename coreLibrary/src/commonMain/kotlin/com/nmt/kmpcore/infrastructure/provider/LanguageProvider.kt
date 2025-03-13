@@ -1,4 +1,4 @@
-package com.nmt.kmpcore.provider
+package com.nmt.kmpcore.infrastructure.provider
 
 import androidx.compose.runtime.mutableStateOf
 import com.nmt.kmpcore.coreLibrary.commonMain.Res

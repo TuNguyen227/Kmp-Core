@@ -1,5 +1,6 @@
 package com.nmt.kmpcore.network.builder
 
+import com.nmt.kmpcore.coreLibrary.BuildKonfig
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.engine.cio.EndpointConfig
@@ -57,14 +58,15 @@ class BaseHttpClientBuilder : HttpClientBuilder {
             install(Auth) {
                 auth?.apply {}
             }
-
-            install(Logging) {
-                logger = object : Logger {
-                    override fun log(message: String) {
-                        println(message)
+            if (BuildKonfig.isDebug) {
+                install(Logging) {
+                    logger = object : Logger {
+                        override fun log(message: String) {
+                            println(message)
+                        }
                     }
+                    level = LogLevel.ALL
                 }
-                level = LogLevel.ALL
             }
         }
     }

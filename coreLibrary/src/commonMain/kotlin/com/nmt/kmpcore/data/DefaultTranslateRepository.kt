@@ -6,10 +6,10 @@ import com.nmt.kmpcore.network.model.request.TranslatingText
 import com.nmt.kmpcore.network.model.response.TranslateResponse
 import com.nmt.kmpcore.network.safeApiCall
 
-class DefaultTranslateRepository(
+internal class DefaultTranslateRepository(
     private val translationDataSource: TranslationDataSource
 ) : TranslateRepository {
-    override suspend fun translate(strings: Array<String>, source: String, target: String) : String {
+    override suspend fun translate(strings: Array<String>, source: String, target: String) : String? {
         val result = safeApiCall<TranslateResponse> {
             translationDataSource.translate(
                 request = strings.map {
@@ -24,7 +24,7 @@ class DefaultTranslateRepository(
                 (result.data as? TranslateResponse.TranslateSuccess)?.translatedText ?: ""
             }
             is ResultWrapper.Error -> {
-                ""
+                null
             }
         }
     }
