@@ -10,6 +10,7 @@ ktorClientLogging = "2.3.12"
 decompose = "3.3.0"
 
 [libraries]
+decompose-extension = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose"}
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktorClientAuth" }
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktorClientCio" }
