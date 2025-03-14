@@ -39,6 +39,8 @@ kotlin {
             implementation(compose.runtime)
             // resources
             implementation(compose.components.resources)
+            implementation(compose.ui)
+            implementation(compose.material3)
             //ktor client
             implementation(coreLibs.bundles.ktor)
             implementation(coreLibs.ktor.client.auth)
