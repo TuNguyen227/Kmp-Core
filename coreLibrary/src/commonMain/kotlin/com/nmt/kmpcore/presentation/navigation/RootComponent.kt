@@ -7,7 +7,7 @@ import com.arkivanov.decompose.router.stack.pushNew
 
 class RootComponent(
     componentContext: ComponentContext,
-    initialConfiguration: Configuration? = null,
+    initialConfiguration: Configuration,
     screenFactory: (Configuration,ComponentContext) -> AppChild
 ): ComponentContext by componentContext {
 
@@ -16,7 +16,7 @@ class RootComponent(
     val childStack = childStack(
         source = navigation,
         serializer = Configuration.serializer(),
-        initialConfiguration = initialConfiguration ?: Configuration.HomeScreen,
+        initialConfiguration = initialConfiguration,
         handleBackButton = true,
         childFactory = screenFactory
     )
