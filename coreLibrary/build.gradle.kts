@@ -89,6 +89,6 @@ buildkonfig {
     }
 
     defaultConfigs("release") {
-        buildConfigConstField(FieldSpec.Type.BOOLEAN,"isDebug","true")
+        buildConfigConstField(FieldSpec.Type.BOOLEAN,"isDebug","false")
     }
 }
