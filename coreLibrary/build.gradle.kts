@@ -42,16 +42,16 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.material3)
             //ktor client
-            implementation(coreLibs.bundles.ktor)
-            implementation(coreLibs.ktor.client.auth)
+            api(coreLibs.bundles.ktor)
+            api(coreLibs.ktor.client.auth)
             // koin
-            implementation(project.dependencies.platform(coreLibs.koin.bom))
-            implementation(coreLibs.koin.core)
+            api(project.dependencies.platform(coreLibs.koin.bom))
+            api(coreLibs.koin.core)
             // navigation
-            implementation(coreLibs.navigation.decompose)
+            api(coreLibs.navigation.decompose)
         }
         iosMain.dependencies {
-            implementation(coreLibs.ktor.client.darwin)
+            api(coreLibs.ktor.client.darwin)
         }
         commonTest.dependencies {
             implementation(coreLibs.kotlin.test)
