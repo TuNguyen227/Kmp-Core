@@ -55,8 +55,8 @@ kotlin {
             //ktor client
             implementation(coreLibs.bundles.ktor)
             // koin
-            implementation(project.dependencies.platform(coreLibs.koin.bom))
-            implementation(coreLibs.koin.core)
+            api(project.dependencies.platform(coreLibs.koin.bom))
+            api(coreLibs.koin.core)
             // navigation
             api(coreLibs.navigation.decompose)
         }
