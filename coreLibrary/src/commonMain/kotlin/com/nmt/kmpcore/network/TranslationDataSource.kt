@@ -10,7 +10,7 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.URLProtocol
 import io.ktor.http.path
 
-class TranslationDataSource(
+internal class TranslationDataSource(
     private val client: HttpClient
 ) : TranslationApi {
 

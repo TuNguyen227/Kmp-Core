@@ -5,7 +5,7 @@ import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
 
-internal suspend inline fun <reified T> safeApiCall(
+suspend inline fun <reified T> safeApiCall(
     crossinline apiCall: suspend () -> HttpResponse
 ): ResultWrapper<T> {
     return try {

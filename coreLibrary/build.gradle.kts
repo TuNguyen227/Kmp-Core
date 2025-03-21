@@ -1,5 +1,8 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.konan.target.Family
+
 plugins {
     alias(coreLibs.plugins.kotlinMultiplatform)
     alias(coreLibs.plugins.composeMultiplatform)
@@ -19,17 +22,25 @@ kotlin {
             }
         }
     }
-    applyDefaultHierarchyTemplate()
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
-            isStatic = true
+    //applyDefaultHierarchyTemplate()
+    iosX64()
+    targets
+        .filterIsInstance<KotlinNativeTarget>()
+        .filter { it.konanTarget.family == Family.IOS }
+        .forEach {
+            it.binaries.framework {
+                baseName = "shared"
+                isStatic = true
+                export(coreLibs.navigation.decompose)
+                export(coreLibs.ktor.client.darwin)
+
+//                // Optional, only if you need state preservation on Darwin (Apple) targets
+//                export("com.arkivanov.essenty:state-keeper:<essenty_version>")
+//
+//                // Optional, only if you need state preservation on Darwin (Apple) targets
+//                export("com.arkivanov.parcelize.darwin:runtime:<parcelize_darwin_version>")
+            }
         }
-    }
     sourceSets {
         androidMain.dependencies {
             implementation(coreLibs.ktor.client.android)
@@ -42,8 +53,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.material3)
             //ktor client
-            api(coreLibs.bundles.ktor)
-            api(coreLibs.ktor.client.auth)
+            implementation(coreLibs.bundles.ktor)
             // koin
             api(project.dependencies.platform(coreLibs.koin.bom))
             api(coreLibs.koin.core)
@@ -52,9 +62,6 @@ kotlin {
         }
         iosMain.dependencies {
             api(coreLibs.ktor.client.darwin)
-        }
-        commonTest.dependencies {
-            implementation(coreLibs.kotlin.test)
         }
     }
 

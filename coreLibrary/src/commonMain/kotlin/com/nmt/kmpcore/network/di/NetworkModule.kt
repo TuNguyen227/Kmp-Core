@@ -10,6 +10,7 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
 import io.ktor.http.Headers
+import io.ktor.http.HttpMessageBuilder
 import io.ktor.http.headers
 import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
@@ -18,7 +19,7 @@ import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
 fun provideTranslationHttpClientModule(
-    headers: Headers
+    headers: (HttpMessageBuilder.() -> Unit)?
 ) = module {
     single<HttpClient> {
         BaseHttpClientBuilder()
