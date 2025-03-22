@@ -22,25 +22,28 @@ kotlin {
             }
         }
     }
-    //applyDefaultHierarchyTemplate()
     iosX64()
-    targets
-        .filterIsInstance<KotlinNativeTarget>()
-        .filter { it.konanTarget.family == Family.IOS }
-        .forEach {
-            it.binaries.framework {
-                baseName = "shared"
-                isStatic = true
-                export(coreLibs.navigation.decompose)
-                export(coreLibs.ktor.client.darwin)
+    iosArm64()
+    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "coreLibrary"
+            isStatic = true
+            export(coreLibs.navigation.decompose)
+            export(coreLibs.ktor.client.darwin)
 
 //                // Optional, only if you need state preservation on Darwin (Apple) targets
 //                export("com.arkivanov.essenty:state-keeper:<essenty_version>")
 //
 //                // Optional, only if you need state preservation on Darwin (Apple) targets
 //                export("com.arkivanov.parcelize.darwin:runtime:<parcelize_darwin_version>")
-            }
         }
+    }
+
     sourceSets {
         androidMain.dependencies {
             implementation(coreLibs.ktor.client.android)
