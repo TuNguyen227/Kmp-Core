@@ -2,14 +2,12 @@ package com.nmt.kmpcore.network.builder
 
 import com.nmt.kmpcore.coreLibrary.BuildKonfig
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.EndpointConfig
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
-import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMessageBuilder
 import io.ktor.http.URLProtocol
@@ -31,7 +29,7 @@ class BaseHttpClientBuilder : HttpClientBuilder {
         return this@BaseHttpClientBuilder
     }
 
-    override fun build(endPointConfig: EndpointConfig?,headers: (HttpMessageBuilder.() -> Unit)?,jsonConfiguration: JsonConfiguration?): HttpClient {
+    override fun build(headers: (HttpMessageBuilder.() -> Unit)?,jsonConfiguration: JsonConfiguration?): HttpClient {
         return HttpClient {
             expectSuccess = true
             defaultRequest {
@@ -40,7 +38,7 @@ class BaseHttpClientBuilder : HttpClientBuilder {
                     host = baseURL
                 }
                 header(HttpHeaders.ContentType,"application/json")
-                headers?.apply {}
+                headers?.invoke(this)
             }
             install(ContentNegotiation) {
                 jsonConfiguration ?: json(
