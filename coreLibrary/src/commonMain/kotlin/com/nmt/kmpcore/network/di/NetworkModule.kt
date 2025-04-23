@@ -21,16 +21,7 @@ import org.koin.dsl.module
 fun provideTranslationHttpClientModule(
     headers: (HttpMessageBuilder.() -> Unit)?
 ) = module {
-    single<HttpClient> {
-        BaseHttpClientBuilder()
-            .host("https://api.cognitive.microsofttranslator.com")
-            .build(
-                headers = headers
-            )
-
-    }
-
     single<TranslationApi> {
-        TranslationDataSource(get())
+        TranslationDataSource(headers = headers)
     }
 }

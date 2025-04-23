@@ -3,7 +3,10 @@ package com.nmt.kmpcore.presentation.navigation
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.pushNew
+import com.arkivanov.decompose.router.stack.replaceAll
 
 class RootComponent(
     componentContext: ComponentContext,
@@ -11,10 +14,10 @@ class RootComponent(
     screenFactory: (Configuration,ComponentContext) -> AppChild
 ): ComponentContext by componentContext {
 
-    private val navigation = StackNavigation<Configuration>()
+    private val navigator = StackNavigation<Configuration>()
 
     val childStack = childStack(
-        source = navigation,
+        source = navigator,
         serializer = Configuration.serializer(),
         initialConfiguration = initialConfiguration,
         handleBackButton = true,
@@ -22,9 +25,22 @@ class RootComponent(
     )
 
     fun navigate(configuration: Configuration, onComplete: (Boolean) -> Unit = {}) {
-        navigation.pushNew(
+        navigator.pushNew(
             configuration = configuration,
             onComplete = onComplete
         )
+    }
+
+    fun navigateAndClearStack(configuration: Configuration,onComplete: (Boolean) -> Unit = {}) {
+        navigator.replaceAll(
+            configurations = arrayOf(configuration),
+            onComplete = {
+                onComplete(true)
+            }
+        )
+    }
+
+    fun popBackStack() {
+        navigator.pop()
     }
 }

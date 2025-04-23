@@ -4,7 +4,7 @@ import com.nmt.kmpcore.network.model.request.TranslatingText
 import com.nmt.kmpcore.network.model.response.TranslateResponse
 import io.ktor.client.statement.HttpResponse
 
-internal interface TranslationApi {
+interface TranslationApi {
     suspend fun translate(
         request: Array<TranslatingText>,
         source: String,

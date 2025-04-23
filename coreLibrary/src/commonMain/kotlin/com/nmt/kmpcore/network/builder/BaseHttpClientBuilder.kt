@@ -2,6 +2,8 @@ package com.nmt.kmpcore.network.builder
 
 import com.nmt.kmpcore.coreLibrary.BuildKonfig
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.HttpTimeoutConfig
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -13,7 +15,6 @@ import io.ktor.http.HttpMessageBuilder
 import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 
 class BaseHttpClientBuilder : HttpClientBuilder {
     override lateinit var baseURL : String
@@ -29,7 +30,7 @@ class BaseHttpClientBuilder : HttpClientBuilder {
         return this@BaseHttpClientBuilder
     }
 
-    override fun build(headers: (HttpMessageBuilder.() -> Unit)?,jsonConfiguration: JsonConfiguration?): HttpClient {
+    override fun build(headers: (HttpMessageBuilder.() -> Unit)?,json: Json?, httpTimeoutConfig: HttpTimeoutConfig?): HttpClient {
         return HttpClient {
             expectSuccess = true
             defaultRequest {
@@ -41,13 +42,20 @@ class BaseHttpClientBuilder : HttpClientBuilder {
                 headers?.invoke(this)
             }
             install(ContentNegotiation) {
-                jsonConfiguration ?: json(
+                json ?: json(
                     Json {
                         prettyPrint = true
                         isLenient = true
                         ignoreUnknownKeys = true
                     }
                 )
+            }
+            install(HttpTimeout) {
+                httpTimeoutConfig?.let {
+                    requestTimeoutMillis = it.requestTimeoutMillis
+                    socketTimeoutMillis = it.socketTimeoutMillis
+                    connectTimeoutMillis = it.connectTimeoutMillis
+                }
             }
             if (BuildKonfig.isDebug) {
                 install(Logging) {
