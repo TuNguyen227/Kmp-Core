@@ -81,19 +81,19 @@ object LanguageProvider {
 }
 
 sealed class Language(val code: String, val icon: DrawableResource) {
-    data object English : Language("us", Res.drawable.icon_flag_us)
+    data object English : Language("en", Res.drawable.icon_flag_us)
     data object Spanish : Language("es", Res.drawable.icon_flag_es)
-    data object Chinese : Language("cn", Res.drawable.icon_flag_china)
+    data object Chinese : Language("zh-Hans", Res.drawable.icon_flag_china)
     data object French : Language("fr", Res.drawable.icon_flag_fr)
     data object German : Language("de", Res.drawable.icon_flag_de)
-    data object Arabic : Language("ae", Res.drawable.icon_flag_ae)
+    data object Arabic : Language("ar", Res.drawable.icon_flag_ae)
     data object Portuguese : Language("pt", Res.drawable.icon_flag_pt)
-    data object Hindi : Language("in", Res.drawable.icon_flag_in)
+    data object Hindi : Language("hi", Res.drawable.icon_flag_in)
     data object Russian : Language("ru", Res.drawable.icon_flag_ru)
-    data object Japanese : Language("jp", Res.drawable.icon_flag_jp)
-    data object Korean : Language("kr", Res.drawable.icon_flag_kr)
+    data object Japanese : Language("ja", Res.drawable.icon_flag_jp)
+    data object Korean : Language("ko", Res.drawable.icon_flag_kr)
     data object Italian : Language("it", Res.drawable.icon_flag_it)
     data object Turkish : Language("tr", Res.drawable.icon_flag_tr)
     data object Dutch : Language("nl", Res.drawable.icon_flag_nl)
-    data object Swedish : Language("se", Res.drawable.icon_flag_se)
+    data object Swedish : Language("sv", Res.drawable.icon_flag_se)
 }
