@@ -5,7 +5,8 @@ import kotlinx.serialization.Serializable
 internal sealed interface TranslateResponse {
     @Serializable
     data class TranslateSuccess(
-        val translatedText: String
+        val detectedLanguage: DetectedLanguage,
+        val translations: List<Translation>
     ) : TranslateResponse
 
     @Serializable
@@ -28,3 +29,15 @@ internal sealed interface TranslateResponse {
         val error: String
     ) : TranslateResponse
 }
+
+@Serializable
+data class DetectedLanguage(
+    val language: String,
+    val score: Double
+)
+
+@Serializable
+data class Translation(
+    val text: String,
+    val to: String
+)
