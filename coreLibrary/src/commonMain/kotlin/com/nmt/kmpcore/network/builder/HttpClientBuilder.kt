@@ -1,9 +1,10 @@
 package com.nmt.kmpcore.network.builder
 
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.HttpTimeoutConfig
 import io.ktor.http.HttpMessageBuilder
 import io.ktor.http.URLProtocol
-import kotlinx.serialization.json.JsonConfiguration
+import kotlinx.serialization.json.Json
 
 interface HttpClientBuilder {
     var baseURL : String
@@ -12,6 +13,7 @@ interface HttpClientBuilder {
 //    fun host(host: String)
     fun build(
         headers: (HttpMessageBuilder.() -> Unit)? = null,
-        jsonConfiguration: JsonConfiguration? = null,
+        json: Json? =null,
+        httpTimeoutConfig: HttpTimeoutConfig? = null
     ) : HttpClient
 }
