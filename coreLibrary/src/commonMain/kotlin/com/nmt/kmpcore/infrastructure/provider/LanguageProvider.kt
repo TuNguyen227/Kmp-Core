@@ -96,4 +96,21 @@ sealed class Language(val code: String, val icon: DrawableResource) {
     data object Turkish : Language("tr", Res.drawable.icon_flag_tr)
     data object Dutch : Language("nl", Res.drawable.icon_flag_nl)
     data object Swedish : Language("se", Res.drawable.icon_flag_se)
+
+    companion object {
+
+        private val allLanguages = listOf(
+            English, Spanish, Chinese, French, German,
+            Arabic, Portuguese, Hindi, Russian, Japanese,
+            Korean, Italian, Turkish, Dutch, Swedish
+        )
+
+        fun fromCode(code: String?): Language? {
+            if (code.isNullOrBlank()) return null
+
+            return allLanguages.firstOrNull {
+                it.code.equals(code, ignoreCase = true)
+            }
+        }
+    }
 }
