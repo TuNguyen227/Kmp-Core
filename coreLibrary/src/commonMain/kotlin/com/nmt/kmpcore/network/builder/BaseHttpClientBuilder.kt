@@ -32,7 +32,7 @@ class BaseHttpClientBuilder : HttpClientBuilder {
 
     override fun build(headers: (HttpMessageBuilder.() -> Unit)?,json: Json?, httpTimeoutConfig: HttpTimeoutConfig?): HttpClient {
         return HttpClient {
-            expectSuccess = true
+            expectSuccess = false
             defaultRequest {
                 url {
                    protocol = baseProtocol
