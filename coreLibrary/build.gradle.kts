@@ -62,6 +62,8 @@ kotlin {
             api(coreLibs.koin.core)
             // navigation
             api(coreLibs.navigation.decompose)
+            //logger
+            api(coreLibs.logger)
         }
         iosMain.dependencies {
             api(coreLibs.ktor.client.darwin)
